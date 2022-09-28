@@ -39,24 +39,13 @@ Sales</h2>
 <div class="row">
 <div class="col">
 
-<h2>Related Work</h2>
+<h2>Preliminary literature review of the topic of interest</h2>
 
-<p><a href="#bottou-1990">Bottou, et al (1990) [1]</a>
-wrote a cool paper which, as an example, could be the focus of your project,
-and this is a great place to talk about the prior work.
-They claimed that neural networks could be expressed as a modular architecture,
-and in this project you explore their claim in detail by implementing a new modular
-framework for creating neural networks that we call <em>Torch</em>.  (Actually,
-Torch really was developed ten years after Bottou's paper to explore his ideas.)
-</p>
-
+<p>Time series data is one kind of data that has a natural time order. It is collected through a sequence of time points over regular intervals. If we examine the time series data closer, we can find it contains an embedded hierarchical aggregation structure. For example, we can look at the daily sale of coffee drinks in Boston over the past three months. The coffee drinks can be disaggregated by types into the sales of latte, cappuccino, espresso, americano, and so on. When the time series data is collected with a hierarchical aggregation structure, we call it hierarchical time series (HTS) data (Hyndman et al., 2018). Although dealing with HTS data can be a daunting task, it is essential for decision making in the business field, especially when it comes to forecasting HTS. However, one of the main challenges of HTS forecasting is to keep the forecasting consistent in each hierarchy.  One approach to deal with the challenge is the bottom-up approach. This approach is to do forecasting for each series at the bottom level, and then add the forecasting up accordingly based on the structure (Hyndman et al., 2018).</p>
+<p>In this paper, the authors aim to apply the deep learning forecasting model N-BEATS with 30 stacks at the top five levels and the tree-based algorithm LightGBM to increase the HTS forecasting accuracy. In addition, to overcome the hierarchy forecasting inconsistency, the authors apply a variate bottom-up method called hierarchical-forecasting-with-alignment approach, which means adding a bias to the bottom hierarchy.</p>
 <h3>References</h3>
 
-<p><a name="bottou-1990">[1]</a> <a href="https://papers.baulab.info/Bottou-1990.pdf"
-  >L&eacute;on Bottou and Patrick Gallinari.
-  <em>A framework for the cooperation of learning algorithms.</em></a>
-  Advances in neural information processing systems 3 (1990).
-</p>
+<p><a href="OTexts.org/fpp2 "name="Hyndman, R.J. and Athanasopoulos, G.">[1]</a> Hyndman, R. J. and Athanasopoulos, G. (2018). Forecasting: principles and practice. Melbourne,    Australia: OTexts.</p>
 
 <h2>Team Members</h2>
                                                    
