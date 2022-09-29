@@ -44,7 +44,16 @@ Sales</h2>
 <br>
 <a href="https://github.com/matthiasanderer/m5-accuracy-competition">Github</a>
 <br>
-<a href="https://www.kaggle.com/c/m5-forecasting-accuracy/discussion/134712">Kaggle dataset</a>
+<h3>Dataset</h3>
+<p>We will be using the <a href="https://www.kaggle.com/c/m5-forecasting-accuracy/discussion/134712">Kaggle dataset</a> that the paper used as part of the Kaggle competition. 
+It contains five csv files, but two of them are for submission evaluation. The three we will be using are: 
+<ul>
+<li><em>calendar.csv</em>, which contains information about the dates when the products are sold</li>
+<li><em>sales_train_validation.csv</em>, which is the training validation data containing historical sales records for Walmart</li>
+<li><em>sell_prices.csv</em>, which details the prices at which various products were sold, and the date they were sold on</li>
+</ul>
+</p>
+
 
 <h3>Literature Review</h3>
 
@@ -52,7 +61,7 @@ Sales</h2>
 <p>In this paper, the authors aim to apply the deep learning forecasting model N-BEATS with 30 stacks at the top five levels and the tree-based algorithm LightGBM to increase the HTS forecasting accuracy. In addition, to overcome the hierarchy forecasting inconsistency, the authors apply a variate bottom-up method called hierarchical-forecasting-with-alignment approach, which means adding a bias to the bottom hierarchy.</p>
 
 <h3>Project Proposal</h3>
-<p>The author applies an intricate approach that combines N-BEATS and LightGBM, which leads to heavy computation and potential overfitting problems. Therefore, we want to do a comparison between the prediction accuracy of this complex model and a shallow Convolutional Neural Networks (CNN) model with 3 layers. We also would like to apply dropout to the neurons in the CNN to see if we can achieve better performance. We hope that through this comparison, we can better understand the effectiveness and underlying motive of the authors’ construction of their solution. </p>
+<p>The author applies an intricate approach that combines N-BEATS and LightGBM, which leads to heavy computation and potential overfitting problems. Therefore, we want to do a comparison between the prediction accuracy of this complex model and a shallow Convolutional Neural Networks (CNN) model with 3 layers. We also would like to apply dropout to the neurons in the CNN to see if we can achieve better performance. We hope that through this comparison, we can better understand the effectiveness and underlying motive of the authors' construction of their solution. </p>
 <h3>References</h3>
 
 <p><a href="https://otexts.com/fpp2/">[1]</a> Hyndman, R. J. and Athanasopoulos, G. (2018). Forecasting: principles and practice. Melbourne,    Australia: OTexts.</p>
