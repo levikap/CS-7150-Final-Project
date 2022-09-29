@@ -53,12 +53,13 @@ It contains five csv files, but two of them are for submission evaluation. The t
 <li><em>sell_prices.csv</em>, which details the prices at which various products were sold, and the date they were sold on</li>
 </ul>
 </p>
+<p>This dataset contains the data for 3049 products across ten stores in three US states. The products are further divided into three product categories and seven product departments. </p>
 
 
 <h3>Literature Review</h3>
 
 <p>Time series data is one kind of data that has a natural time order. It is collected through a sequence of time points over regular intervals. If we examine the time series data closer, we can find it contains an embedded hierarchical aggregation structure. For example, we can look at the daily sale of coffee drinks in Boston over the past three months. The coffee drinks can be disaggregated by types into the sales of latte, cappuccino, espresso, americano, and so on. When the time series data is collected with a hierarchical aggregation structure, we call it hierarchical time series (HTS) data (Hyndman et al., 2018). Although dealing with HTS data can be a daunting task, it is essential for decision making in the business field, especially when it comes to forecasting HTS. </p>
-<p>However, one of the main challenges of HTS forecasting is to keep the forecasting consistent in each hierarchy.  One approach to deal with the challenge is the bottom-up approach. This approach is to do forecasting for each series at the bottom level, and then add the forecasting up accordingly based on the structure (Hyndman et al., 2018).</p>
+<p>However, one of the main challenges of HTS forecasting is to keep the forecasting consistent in each hierarchy.  Often the lowest level of the hierarchy will exhibit a strong pattern, but the upper levels of the hierarchy, through aggregation by the bottom level, will contain the forecastable components. By spatially aggregating the intermittent time series  (Zufferey et al., 2016), or temporally aggregating the intermittent time series (Nikolopoulos et al. 2011), overall forecast accuracy can be improved.</p>
 <p>In this paper, the authors split up the hierarchy into the continuous time series at the top level and the intermediate time series on the bottom level. By treating the bottom levels as mutable, they can achieve higher accuracy on the top levels of the model. 
 </p>
 <p>To achieve this, they combine two models: N-BEATS (Oreshkin et al., 2019), a deep neural network architecture that uses deep fully connected layers and backward and forward residual links, and LightGBM (Ke et al., 2017), which uses gradient boosting decision trees, partitioning input variables into tree structures which are then used in the final decision. 
@@ -73,6 +74,8 @@ It contains five csv files, but two of them are for submission evaluation. The t
 <p><a href="https://otexts.com/fpp2/">[1]</a> Hyndman, R. J. and Athanasopoulos, G. (2018). Forecasting: principles and practice. Melbourne,    Australia: OTexts.</p>
 <p><a href="https://arxiv.org/abs/1905.10437">[2]</a>Oreshkin, B. N., Carpov, D., Chapados, N., and Bengio, Y. (2019). "N-BEATS: Neural basis expansion analysis for interpretable time series forecasting". In: arXiv preprint arXiv:1905.10437.</p>
 <p><a href="https://proceedings.neurips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf">[3]</a>Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., and Liu, T.-Y. (2017). "LightGBM: A highly efficient gradient boosting decision tree". In: Advances in neural information processing systems, pp. 3146-3154.</p>
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-319-50947-1_2">[4]</a>Zufferey, T., Ulbig, A., Koch, S., and Hug, G. (2016). "Forecasting of smart meter time series based on neural networks". In: International workshop on data analytics for renewable energy integration. Springer, pp. 10-21.</p>
+<p><a href="https://link.springer.com/article/10.1057/jors.2010.32">[5]</a>Nikolopoulos, K., Syntetos, A. A., Boylan, J. E., Petropoulos, F., and Assimakopoulos, V. (2011). "An aggregate–disaggregate intermittent demand approach (ADIDA) to forecasting: an empirical proposition and analysis". In: Journal of the Operational Research Society 62.3, pp. 544-554.</p>
 
 <h2>Team Members</h2>
                                                    
