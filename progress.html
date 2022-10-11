@@ -49,7 +49,7 @@ Sales — Milestone 2</h2>
 
 <h3>Conceptual Review</h3>
 
-<p>The main method this paper uses is combining two machine learning algorithms, N-BEATS and LightGBM, for different tasks within the <em>hierarchical-forecasting-with-alignment</em> framework. N-BEATS uses a deep stack of full-connected layers: 30 stacks of depth 5 and a total depth of 150 layers. It’s composed of two residual branches to form a doubly residual stacking architecture: one runs over the backcast prediction of each layer, the other the forecast branch of each layer. This allows it to run without a massive data source or utilizing extensive feature engineering. The authors use the GluonTS implementation of N-BEATS rather than the original, as it requires less hyperparameter tuning of the variable representing the historical range of length for each selected time series. GluonTS instead reduces computational requirements by randomly selecting a time series and a starting point within it. This paper trains N-BEATS using the top five levels data. LightGBM uses gradient boosting decision trees: it first uses the decision tree algorithm to partition inputs into tree structures. Since the decision strategy for trees is so weak, it uses gradient boosting algorithms to aggregate predictions and improve performance, making the ultimate prediction based on the tree. This is used for the bottom level to model the intermittent time series.</p>
+<p>The main method this paper uses is combining two machine learning algorithms, N-BEATS and LightGBM, for different tasks within the <em>hierarchical-forecasting-with-alignment</em> framework. N-BEATS uses a deep stack of full-connected layers: 30 stacks of depth 5 and a total depth of 150 layers. It's composed of two residual branches to form a doubly residual stacking architecture: one runs over the backcast prediction of each layer, the other the forecast branch of each layer. This allows it to run without a massive data source or utilizing extensive feature engineering. The authors use the GluonTS implementation of N-BEATS rather than the original, as it requires less hyperparameter tuning of the variable representing the historical range of length for each selected time series. GluonTS instead reduces computational requirements by randomly selecting a time series and a starting point within it. This paper trains N-BEATS using the top five levels data. LightGBM uses gradient boosting decision trees: it first uses the decision tree algorithm to partition inputs into tree structures. Since the decision strategy for trees is so weak, it uses gradient boosting algorithms to aggregate predictions and improve performance, making the ultimate prediction based on the tree. This is used for the bottom level to model the intermittent time series.</p>
 
 
 <h3>Implementation Details</h3>
@@ -63,7 +63,7 @@ Sales — Milestone 2</h2>
     <li>sales_train_evaluation.csv - Includes sales [d_1 - d_1941] (labels used for the Public leaderboard)</li>
 </ul>
 
-<p>We took this data and ran it through the model as found on the author’s Github. The author’s code consists of four Python Notebooks and a dataset. The author’s description of these is as follows: </p>
+<p>We took this data and ran it through the model as found on the author's Github. The author's code consists of four Python Notebooks and a dataset. The author's description of these is as follows: </p>
 <ul>
     <li>m5-simple-fe-evaluation.ipynb: feature preprocessing notebook</li>
     <li>m5-final-XX.ipynb: bottom level (lvl12) train and predict notebook</li>
@@ -72,17 +72,17 @@ Sales — Milestone 2</h2>
     <li>gluonts-20200710T072218Z-001.zip: modified glutonts version (added lookahead to Trainer)</li>
 </ul>
 
-<p>We followed the author’s README instructions. This involved first running m5-simple-fe-evaluation.ipynb for feature preprocessing. We then trained the bottom-level model using m5-final-XX.ipynb five times, using five different loss multipliers as recommended by the authors. We used the five bottom-level model results when training the top-level model using m5-nbeats-toplvl.ipynb. We did this three times for each of the changes to our hyperparameter we tested, batch number.   Finally, we aligned the results with m5-alignandsubmit.ipynb, which gave us the errors and visualizations. For all hyperparameters other than batch number, we used the suggested values from the paper.</p>
+<p>We followed the author's README instructions. This involved first running m5-simple-fe-evaluation.ipynb for feature preprocessing. We then trained the bottom-level model using m5-final-XX.ipynb five times, using five different loss multipliers as recommended by the authors. We used the five bottom-level model results when training the top-level model using m5-nbeats-toplvl.ipynb. We did this three times for each of the changes to our hyperparameter we tested, batch number.   Finally, we aligned the results with m5-alignandsubmit.ipynb, which gave us the errors and visualizations. For all hyperparameters other than batch number, we used the suggested values from the paper.</p>
 
 <h3>Findings</h3>
 
-<p>Our goal for this milestone was to figure out how to successfully run the author’s code to generate predictions based on time-series data, using their <em>hierarchical-forecasting-with-alignment</em> approach, while also analyzing their code for potential opportunities to test hyperparameters. We also aimed to test variations in performance on one hyperparameter.</p>
+<p>Our goal for this milestone was to figure out how to successfully run the author's code to generate predictions based on time-series data, using their <em>hierarchical-forecasting-with-alignment</em> approach, while also analyzing their code for potential opportunities to test hyperparameters. We also aimed to test variations in performance on one hyperparameter.</p>
 
-<p>For this first task, running the author’s code, we ran into a few difficulties. The first was that this ended up being a very computationally expensive process to run. We were unable to run it on the base version of Google Co-lab, so one member of our group purchased Colab Pro+, while the other tried running the code on the Discovery cluster. We were unable to figure out how to install dependencies on the cluster, so we switched the other method of running to using the clusters on Kaggle. For the majority of our computation, however, we used the cluster on Colab Pro+, which allowed us enough compute resources to run their code with different hyperparameters. Getting the code to run was fairly straightforward once compute resources were no longer a problem, as the authors did a good job documenting their code and the points at which we needed to update for our own environment. However, even with sufficient compute resources, it took many hours for their code to run. While this meant we were grateful to have started early and had enough time for the code to run so that our experiments could be conducted, with the short turnaround for Milestone 2 it also meant that, to have enough time to complete our analysis, we could test fewer hyperparameter adjustments than we had hoped. Since for each hyperparameter change we needed to run the entire top-level N-BEATS model again, we could change fewer parameters.</p>
+<p>For this first task, running the author's code, we ran into a few difficulties. The first was that this ended up being a very computationally expensive process to run. We were unable to run it on the base version of Google Co-lab, so one member of our group purchased Colab Pro+, while the other tried running the code on the Discovery cluster. We were unable to figure out how to install dependencies on the cluster, so we switched the other method of running to using the clusters on Kaggle. For the majority of our computation, however, we used the cluster on Colab Pro+, which allowed us enough compute resources to run their code with different hyperparameters. Getting the code to run was fairly straightforward once compute resources were no longer a problem, as the authors did a good job documenting their code and the points at which we needed to update for our own environment. However, even with sufficient compute resources, it took many hours for their code to run. While this meant we were grateful to have started early and had enough time for the code to run so that our experiments could be conducted, with the short turnaround for Milestone 2 it also meant that, to have enough time to complete our analysis, we could test fewer hyperparameter adjustments than we had hoped. Since for each hyperparameter change we needed to run the entire top-level N-BEATS model again, we could change fewer parameters.</p>
 
 <p>	Another difficulty we ran into was setting up GPU support for the top-level model. Due to this model being a few years old, there were some conflicts with the dependencies for cuda on CoLab being out of date from what the model was using. We needed to figure out how to install the correct version of mxnet. We were unable to fix this on the desktop and used CPU for the majority of our calculations. We intend to look into this further for the final project.</p>
 
-<p>The results for our experiments and supporting visualizations are given below. We note that all errors and graphs are the aggregate values, instead of dividing it by state, store, and product category as the paper does. This was done to conserve space and focus on the aggregate data. We note that the error is lowest for the lowest number of batches per epoch, with a root mean squared scaled error of 0.66561. We found a significantly higher error than reported in the paper. The paper’s error values for an epoch of 10 and number of batches per epoch at 1000 for all categories was 8.2742 × 10−5, compared to our value of 0.858572. This ran counter to our expectations, as we believed we were running the code identically to what the authors performed. We do not know why this is, and intend to investigate this further in the final project.</p>
+<p>The results for our experiments and supporting visualizations are given below. We note that all errors and graphs are the aggregate values, instead of dividing it by state, store, and product category as the paper does. This was done to conserve space and focus on the aggregate data. We note that the error is lowest for the lowest number of batches per epoch, with a root mean squared scaled error of 0.66561. We found a significantly higher error than reported in the paper. The paper's error values for an epoch of 10 and number of batches per epoch at 1000 for all categories was 8.2742 x 10-5, compared to our value of 0.858572. This ran counter to our expectations, as we believed we were running the code identically to what the authors performed. We do not know why this is, and intend to investigate this further in the final project.</p>
 
 <h2>Experiments:</h2>
 <ul>
@@ -96,46 +96,46 @@ Sales — Milestone 2</h2>
             <li>mean_abs_error: 4562.591561            </li>
             <li>rmse: 4826.258199            </li>
         </ul>
-        <img src="">
+        <img src="n_batches_100.png">
     </li>
     
-    <li>
+    <li>Number of batches per epoch: 500
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>start time: 1665435559.5475013 — Monday, October 10, 2022 4:59:19.547 PM            </li>
+            <li>end time: 1665442691.4661298 — Monday, October 10, 2022 6:58:11.466 PM            </li>
+            <li>total time: 1.98 hours            </li>
+            <li>rmsse: 0.793228            </li>
+            <li>mean_error: -4651.500601	            </li>
+            <li>mean_abs_error: 4651.500601            </li>
+            <li>rmse: 4800.218426
+            </li>
         </ul>
-        <img src="">
+        <img src="n_batches_500.png">
     </li>
 
-    <li>
+    <li>Number of batches per epoch: 1000 (paper's recommended value)
         <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>start time: 1665444252.39971 — Monday, October 10, 2022 7:24:12.399 PM            </li>
+            <li>end time: 1665458178.277721 — Monday, October 10, 2022 11:16:18.277 PM            </li>
+            <li>total time: 3.8683333 hours            </li>
+            <li>rmsse: 0.858572            </li>
+            <li>mean_error: -5031.394016            </li>
+            <li>mean_abs_error: 5031.394016            </li>
+            <li>rmse: 5217.090655            </li>
         </ul>
-        <img src="">
+        <img src="n_batches_1000.png">
     </li>
 
 
 </ul>
 
+
+<h3>Next Steps</h3>
+<p>	This beginning implementation was highly valuable in informing our project's scope and we ironed out a number of difficulties early-on that will allow us to focus on analysis and processing moving forward. Since our understanding of our results run counter to the hyperparameters suggested by the paper, we want to dig into why this is and figure out where our process of running the models differed from that of the authors'. We would also like to experiment with more hyperparameters in an effort to reduce the errors further. Some hyperparameters we intend to investigate include learning rate, number of epochs, and batch size. Additionally, we intend to experiment with altering the network's construction to better understand the author's decision to use 30 stacks of depth 5. </p>
+
 <h3>References</h3>
 
-<p><a href="https://otexts.com/fpp2/">[1]</a> Hyndman, R. J. and Athanasopoulos, G. (2018). Forecasting: principles and practice. Melbourne,    Australia: OTexts.</p>
-<p><a href="https://arxiv.org/abs/1905.10437">[2]</a>Oreshkin, B. N., Carpov, D., Chapados, N., and Bengio, Y. (2019). "N-BEATS: Neural basis expansion analysis for interpretable time series forecasting". In: arXiv preprint arXiv:1905.10437.</p>
-<p><a href="https://proceedings.neurips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf">[3]</a>Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., and Liu, T.-Y. (2017). "LightGBM: A highly efficient gradient boosting decision tree". In: Advances in neural information processing systems, pp. 3146-3154.</p>
-<p><a href="https://link.springer.com/chapter/10.1007/978-3-319-50947-1_2">[4]</a>Zufferey, T., Ulbig, A., Koch, S., and Hug, G. (2016). "Forecasting of smart meter time series based on neural networks". In: International workshop on data analytics for renewable energy integration. Springer, pp. 10-21.</p>
-<p><a href="https://link.springer.com/article/10.1057/jors.2010.32">[5]</a>Nikolopoulos, K., Syntetos, A. A., Boylan, J. E., Petropoulos, F., and Assimakopoulos, V. (2011). "An aggregate-disaggregate intermittent demand approach (ADIDA) to forecasting: an empirical proposition and analysis". In: Journal of the Operational Research Society 62.3, pp. 544-554.</p>
-
+<p><a href="https://arxiv.org/pdf/2103.08250v4.pdf">[1]</a>  Anderer, Matthias and Li, Feng (2021). Hierarchical forecasting with a top-down alignment of independent level forecasts. arxiv.org.</p>
 <h2>Team Members</h2>
                                                    
 <p>Levi Kaplan, Ming Luo</p>
