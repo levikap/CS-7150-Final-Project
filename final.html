@@ -43,7 +43,7 @@
 <p>Levi Kaplan, Ming Luo</p>
 
 <h3>Project Source and Links</h3>
-<a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG#scrollTo=TkO0hFmJNIfL">CoLab containing our Guide and Findings</a>
+<a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG#scrollTo=TkO0hFmJNIfL">Colab containing our Guide and Findings</a>
 <br>
 <a href="https://arxiv.org/pdf/1906.05264.pdf">Main paper: GluonTS: Probabilistic and Neural Time Series Modeling in Python.</a>
 <br>
@@ -58,9 +58,9 @@
 
 <h3>Background</h3>
 
-<p>The main paper we used for our inspiration for this project was Hierarchical forecasting with a top-down alignment of independent level forecasts by Matthias Anderer and Feng Li. This paper was a summary of the techniques used by the researchers to win second place in the M5 Forecasting Accuracy competition. We found this paper to be particularly interesting in their techniques of combining two models, N-BEATS for continuous time-series at the top levels, and LightGBM for intermediate time series at the bottom level. The authors then aligned these two methods, giving stronger predictive power.</p>
+<p>The main paper we used for our inspiration for this project was Hierarchical forecasting with a top-down alignment of independent level forecasts by Matthias Anderer and Feng Li [1]. This paper was a summary of the techniques used by the researchers to win second place in the M5 Forecasting Accuracy competition. We found this paper to be particularly interesting in their techniques of combining two models, N-BEATS for continuous time-series at the top levels, and LightGBM for intermediate time series at the bottom level. The authors then aligned these two methods, giving stronger predictive power.</p>
 <p>While we were quite interested in the techniques of this paper, we quickly realized that we lacked the technical expertise not only to understand this paper, but to understand the utilization of GluonTS to solve time-series forecasting problems itself. While this was a bit disheartening, we realized that through pivoting to producing a project that seeks to explore and help readers understand time series forecasting through GluonTS, our project could be valuable to people who, like us at the start of this project, were unfamiliar with the concepts and had a hard time finding resources to help explain them.</p>
-<p>In researching this project, we encountered a number of other papers that Anderer and Li's paper, including GluonTS: Probabilistic and Neural Time Series Modeling in Python, the paper written by the AWS researchers introducing GluonTS as a framework. We also encountered DeepAR: Probabilistic forecasting with autoregressive recurrent networks, which introduces one of the estimators we test in our project. This previous work provided us with frameworks used by Anderer and Li in constructing their model and gave us requisite background information about time-series forecasting in GluonTS for us ot use in our project.</p>
+<p>In researching this project, we encountered a number of other papers that Anderer and Li's paper, including GluonTS: Probabilistic and Neural Time Series Modeling in Python, the paper written by the AWS researchers introducing GluonTS as a framework. We also encountered DeepAR: Probabilistic forecasting with autoregressive recurrent networks [3], which introduces one of the estimators we test in our project. This previous work provided us with frameworks used by Anderer and Li in constructing their model and gave us requisite background information about time-series forecasting in GluonTS for us ot use in our project.</p>
 
 
 <h3>Methods</h3>
