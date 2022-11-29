@@ -31,8 +31,7 @@
 <div class="container">
 <div class="row">
 <div class="col justify-content-center text-center">
-<h2>Hierarchical Time Series Forecasting on Walmart Products Unit 
-Sales -- Milestone 3</h2>
+<h2>Time Series Forecasting with GluonTS: An Introductory Guide</h2>
 <p></p>
 </div>
 </div>
@@ -40,18 +39,16 @@ Sales -- Milestone 3</h2>
 <div class="col">
 
 <h3>Project Source and Links</h3>
-<a href="https://github.com/levikap/CS7150-Final-Project-Code">Our Code and Implementation</a>
+<a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG#scrollTo=TkO0hFmJNIfL">CoLab containing our Guide and Findings</a>
 <br>
-<a href="https://arxiv.org/pdf/2103.08250v4.pdf">Main paper: Hierarchical forecasting with a top-down alignment of independent level forecasts (arxiv.org)</a>
-<br>
-<a href="https://github.com/matthiasanderer/m5-accuracy-competition">Author's Github</a>
+<a href="https://arxiv.org/pdf/1906.05264.pdf">Main paper: GluonTS: Probabilistic and Neural Time Series Modeling in Python.</a>
 <br>
 <h3>Figure</h3>
 <img src="final_figure.png">
 
 <h3>Introduction</h3>
 
-<p>Our project seeks to provide a high-level overview of time-series probabilistic forecasting, the tools available, and a guide to their use. Our project initially sought to extend some state-of-the-art time-series forecasting techniques, but in implementing their techniques we quickly realized that this was out of scope; not only were we having difficulty understanding their implementation details at a fundamental level, but we also weren’t even able to properly train the models with the time constraints of the project and the compute resources provided by Google CoLab. We therefore decided to pivot and focus on a more fundamental question: what even is probabilistic time-series forecasting? How can we better understand this cutting-edge deep learning technique, and make it easier for others to understand it as well?</p>
+<p>Our project seeks to provide a high-level overview of time-series probabilistic forecasting, the tools available, and a guide to their use. Our project initially sought to extend some state-of-the-art time-series forecasting techniques, but in implementing their techniques we quickly realized that this was out of scope; not only were we having difficulty understanding their implementation details at a fundamental level, but we also weren't even able to properly train the models with the time constraints of the project and the compute resources provided by Google CoLab. We therefore decided to pivot and focus on a more fundamental question: what even is probabilistic time-series forecasting? How can we better understand this cutting-edge deep learning technique, and make it easier for others to understand it as well?</p>
 <p>This project seeks to answer these questions and provide those unfamiliar with this problem with a high-level, easy to understand guide to time-series forecasting, including figures, visualizations, and code examples. This is important because time-series forecasting is a relevant problem in many domains, such as commerce, epidemiology, weather, and sports analytics. Anytime there is historical data that has a time order from which a prediction can be made, time-series forecasting may help make these predictions. It is therefore important for this technique to be more approachable and easier to understand.</p>
 
 
@@ -59,12 +56,12 @@ Sales -- Milestone 3</h2>
 
 <p>The main paper we used for our inspiration for this project was Hierarchical forecasting with a top-down alignment of independent level forecasts by Matthias Anderer and Feng Li. This paper was a summary of the techniques used by the researchers to win second place in the M5 Forecasting Accuracy competition. We found this paper to be particularly interesting in their techniques of combining two models, N-BEATS for continuous time-series at the top levels, and LightGBM for intermediate time series at the bottom level. The authors then aligned these two methods, giving stronger predictive power.</p>
 <p>While we were quite interested in the techniques of this paper, we quickly realized that we lacked the technical expertise not only to understand this paper, but to understand the utilization of GluonTS to solve time-series forecasting problems itself. While this was a bit disheartening, we realized that through pivoting to producing a project that seeks to explore and help readers understand time series forecasting through GluonTS, our project could be valuable to people who, like us at the start of this project, were unfamiliar with the concepts and had a hard time finding resources to help explain them.</p>
-<p>In researching this project, we encountered a number of other papers that Anderer and Li’s paper, including GluonTS: Probabilistic and Neural Time Series Modeling in Python, the paper written by the AWS researchers introducing GluonTS as a framework. We also encountered DeepAR: Probabilistic forecasting with autoregressive recurrent networks, which introduces one of the estimators we test in our project. This previous work provided us with frameworks used by Anderer and Li in constructing their model and gave us requisite background information about time-series forecasting in GluonTS for us ot use in our project.</p>
+<p>In researching this project, we encountered a number of other papers that Anderer and Li's paper, including GluonTS: Probabilistic and Neural Time Series Modeling in Python, the paper written by the AWS researchers introducing GluonTS as a framework. We also encountered DeepAR: Probabilistic forecasting with autoregressive recurrent networks, which introduces one of the estimators we test in our project. This previous work provided us with frameworks used by Anderer and Li in constructing their model and gave us requisite background information about time-series forecasting in GluonTS for us ot use in our project.</p>
 
 
 <h3>Methods</h3>
-<p>Our primary technique for this study involved reading through documentation and papers and conducting experiments through Google Colab. We read through a number of blog posts, articles, and code walkthroughs from the internet over the course of researching time-series forecasting. Additionally, we read through the GluonTS documentation and code, seeking to understand from a more fundamental way how the library works, how it’s trained and tested, and how we can use it to run our own forecasting experiments.</p>
-<p>Our contributions take the form of an exploration of time-series forecasting as a problem: what are the training and testing parameters? How is the model trained and run? How can one use GluonTS to solve a time-series forecasting problem? We sought to solve these problems by reading documentation and papers on the subject, and exploring their practical use by coding examples and testing different models’ performances through cross-grid hyperparameter tuning.</p>
+<p>Our primary technique for this study involved reading through documentation and papers and conducting experiments through Google Colab. We read through a number of blog posts, articles, and code walkthroughs from the internet over the course of researching time-series forecasting. Additionally, we read through the GluonTS documentation and code, seeking to understand from a more fundamental way how the library works, how it's trained and tested, and how we can use it to run our own forecasting experiments.</p>
+<p>Our contributions take the form of an exploration of time-series forecasting as a problem: what are the training and testing parameters? How is the model trained and run? How can one use GluonTS to solve a time-series forecasting problem? We sought to solve these problems by reading documentation and papers on the subject, and exploring their practical use by coding examples and testing different models' performances through cross-grid hyperparameter tuning.</p>
 
 <h3>Results</h3>
 <p>We have compiled our results into a Google Colab. The link to this can be found <a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG#scrollTo=TkO0hFmJNIfL">here</a>.</p>
