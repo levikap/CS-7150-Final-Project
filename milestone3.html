@@ -61,7 +61,7 @@
 <ul>
 <li>What is GluonTS?
 
-    <p>GluonTS [7] is a Python package that can be used to model deep probabilistic time series. Many time series forecasting libraries in the market are based on simpler regression models such as ARIMA, which has low prediction accuracy. However, GluonTS introduces deep learning models to time series data, which substantially increases prediction accuracy. In this tutorial we will illustrate how to use GluonTS to predict future values.</p>
+    <p>GluonTS has its unique dataset format requirements [16]. Therefore, the first step of using GluonTS is to have a proper dataset. A proper dataset needs at least the following properties: an iterable collection of data entries (time series) and corresponding target field (column) and start field (column) for each data entry. The target field contains the values of the time series and the start field shows the starting date of the time series. There are three ways to generate proper datasets for GluonTS:</p>
 </li>
     
 <li>What is probabilistic time-series forecasting?
@@ -73,7 +73,25 @@
     <p>For example, the above graph is an example of probabilistic time series forecasting. The generation process of this graph is like predicting a time series 1000 times and then plotting the distribution of all possible outcomes. From the graph, we can find the 50% percentile (median), 50% prediction interval, and 90% prediction interval. For example, if this was a graph aiming to predict the demand of milk, we could know that the demand is more likely between 700 to 800 gallons, but unlikely 900 gallons.<p>
 </li>
                            
+<ul>
+                                                         
+           
+<h3>Model Implementation: Data Preprocessing</h3>
+<ul>
+<li>What is GluonTS?
+
+    <p>GluonTS [7] is a Python package that can be used to model deep probabilistic time series. Many time series forecasting libraries in the market are based on simpler regression models such as ARIMA, which has low prediction accuracy. However, GluonTS introduces deep learning models to time series data, which substantially increases prediction accuracy. In this tutorial we will illustrate how to use GluonTS to predict future values.</p>
+    <ul>
+       <li>Use an available dataset provided by GluonTS. There are several built-in datasets, which can be used on the modeling step without post processing.<li>
+       <li>Create a self_defined dataset using GluonTS. This type of datasets can be created by using the ComplexSeasonalTimeSeries module, which should be a list of dictionaries. Each dictionary denotes a time series and it at least has the required target and start fields.<li>
+       <li>Convert custom dataset to the GluonTS required format. Besides meeting the dataset format requirements mentioned above, we can also add more fields by using transformation objects, which could be helpful to our model. In addition, with the transformation object, we can set the appropriate training and inference windows to increase the forecasting accuracy.<li>
+     <ul>
+                           
+</li>
+                           
  <ul>
+                           
+
  
                
 
