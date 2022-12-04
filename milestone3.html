@@ -57,15 +57,24 @@
 
 
 <h3>Background</h3>
+                           
+<ul>
+    <li>What is GluonTS?
 
-<h3>What is GluonTS?</h3>                           
-<p>GluonTS [7] is a Python package that can be used to model deep probabilistic time series. Many time series forecasting libraries in the market are based on simpler regression models such as ARIMA, which has low prediction accuracy. However, GluonTS introduces deep learning models to time series data, which substantially increases prediction accuracy. In this tutorial we will illustrate how to use GluonTS to predict future values.</p>
-<h3>What is probabilistic time-series forecasting?</h3> 
-<p>Let’s first discuss the concept of probabilistic forecasting. Probabilistic forecasting gives a probabilistic distribution of all the possible outcomes instead of one single value. For instance, we can predict the frequency of heads when flipping two coins once, which is a random experience. The result of throwing a coin will be either heads or tails. In addition, the frequency of heads in this experiment can be 0, 1, or 2. Instead of picking a single number from 0,1,or 2 as the prediction result (A.K.A. point forecasting), we are interested in generating a probability distribution table to include all the possible outcomes. The frequency of heads in the outcome is a random variable. The probability distribution table shows how likely each possible outcome is. The probability of outcome 0, which means that both the two coins show tails, is 0.5 * 0.5 = 0.25. The probability of outcome 1, which means that one coin shows tails and the other shows heads, is 2* 0.5 * 0.5 =0.5. The probability of outcome 2, which means that both the two coins show heads, is 0.5 * 0.5 = 0.25. Here is the distribution table:</p>
-<img src="distribution_table_m3.png">                           
-<p>Probabilistic forecasting is more meaningful than point forecasting since the real world is full of uncertainties. For example, when we do weather forecasting, the prediction is more accurate when we conclude that the probability that tomorrow will be a rainy day is 20% instead of just saying that tomorrow is going to rain or not. Similarly, probabilistic time series forecasting predicts the probabilistic distribution of the future time points.<p>
-<img src="prob_graph_1.png">
-<p>For example, the above graph is an example of probabilistic time series forecasting. The generation process of this graph is like predicting a time series 1000 times and then plotting the distribution of all possible outcomes. From the graph, we can find the 50% percentile (median), 50% prediction interval, and 90% prediction interval. For example, if this was a graph aiming to predict the demand of milk, we could know that the demand is more likely between 700 to 800 gallons, but unlikely 900 gallons.<p>
+        <p>GluonTS [7] is a Python package that can be used to model deep probabilistic time series. Many time series forecasting libraries in the market are based on simpler regression models such as ARIMA, which has low prediction accuracy. However, GluonTS introduces deep learning models to time series data, which substantially increases prediction accuracy. In this tutorial we will illustrate how to use GluonTS to predict future values.</p>
+    </li>
+    
+     <li>What is probabilistic time-series forecasting?
+                           
+         <p>Let’s first discuss the concept of probabilistic forecasting. Probabilistic forecasting gives a probabilistic distribution of all the possible outcomes instead of one single value. For instance, we can predict the frequency of heads when flipping two coins once, which is a random experience. The result of throwing a coin will be either heads or tails. In addition, the frequency of heads in this experiment can be 0, 1, or 2. Instead of picking a single number from 0,1,or 2 as the prediction result (A.K.A. point forecasting), we are interested in generating a probability distribution table to include all the possible outcomes. The frequency of heads in the outcome is a random variable. The probability distribution table shows how likely each possible outcome is. The probability of outcome 0, which means that both the two coins show tails, is 0.5 * 0.5 = 0.25. The probability of outcome 1, which means that one coin shows tails and the other shows heads, is 2* 0.5 * 0.5 =0.5. The probability of outcome 2, which means that both the two coins show heads, is 0.5 * 0.5 = 0.25. Here is the distribution table:</p>
+         <img src="distribution_table_m3.png">                           
+         <p>Probabilistic forecasting is more meaningful than point forecasting since the real world is full of uncertainties. For example, when we do weather forecasting, the prediction is more accurate when we conclude that the probability that tomorrow will be a rainy day is 20% instead of just saying that tomorrow is going to rain or not. Similarly, probabilistic time series forecasting predicts the probabilistic distribution of the future time points.<p>
+         <img src="prob_graph_1.png">
+         <p>For example, the above graph is an example of probabilistic time series forecasting. The generation process of this graph is like predicting a time series 1000 times and then plotting the distribution of all possible outcomes. From the graph, we can find the 50% percentile (median), 50% prediction interval, and 90% prediction interval. For example, if this was a graph aiming to predict the demand of milk, we could know that the demand is more likely between 700 to 800 gallons, but unlikely 900 gallons.<p>
+    </li>
+                           
+ <ul>
+
 
 
 <h3>Methods</h3>
