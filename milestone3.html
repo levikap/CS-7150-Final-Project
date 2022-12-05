@@ -75,10 +75,12 @@
                            
 <ul>
                                                          
+
 <h3>Model Implementation: Data Preprocessing</h3>
 <ul>
     <li>How is the Data Preprocessed?
-    <p>GluonTS has its unique dataset format requirements [16]. Therefore, the first step of using GluonTS is to have a proper dataset. A proper dataset needs at least the following properties: an iterable collection of data entries (time series) and corresponding target field (column) and start field (column) for each data entry. The target field contains the values of the time series and the start field shows the starting date of the time series. There are three ways to generate proper datasets for GluonTS:<p>
+        
+        <p>GluonTS has its unique dataset format requirements [16]. Therefore, the first step of using GluonTS is to have a proper dataset. A proper dataset needs at least the following properties: an iterable collection of data entries (time series) and corresponding target field (column) and start field (column) for each data entry. The target field contains the values of the time series and the start field shows the starting date of the time series. There are three ways to generate proper datasets for GluonTS:<p>
         <ul>
             <li>Use an available dataset provided by GluonTS. There are several built-in datasets, which can be used on the modeling step without post processing.           </li>
             <li>Create a self_defined dataset using GluonTS. This type of datasets can be created by using the ComplexSeasonalTimeSeries module, which should be a list of dictionaries. Each dictionary denotes a time series and it at least has the required target and start fields.          </li>
@@ -88,7 +90,8 @@
     </li>
     
     <li>What dataset do we use?
-    <p>The dataset we used in this tutorial, ‘m4_hourly’, is a built-in dataset. It is part of the dataset that is being used in the fourth edition of the Makridakis forecasting Competition. With the given 700 values from each hour between 1750-01-01 00:00 and 1750-01-30 03:00, our aim is to predict the values in the next 48 hours. This dataset is an object that contains three members:<p>
+        
+        <p>The dataset we used in this tutorial, ‘m4_hourly’, is a built-in dataset. It is part of the dataset that is being used in the fourth edition of the Makridakis forecasting Competition. With the given 700 values from each hour between 1750-01-01 00:00 and 1750-01-30 03:00, our aim is to predict the values in the next 48 hours. This dataset is an object that contains three members:<p>
         <ul>
             <li>dataset.train is an iterable collection of data entries used for training.          </li>
             <li>dataset.test is an iterable collection of data entries used for inference. It contains the training dataset and prediction values.          </li>
