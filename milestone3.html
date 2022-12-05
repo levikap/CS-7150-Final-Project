@@ -58,6 +58,7 @@
                            
                            
 <h3>Background</h3>
+
                            
 <ul>
     <li>What is GluonTS?
@@ -78,6 +79,8 @@
  
                                    
 <h3>Data Preprocessing</h3>
+                                   
+                                   
 <ul>
     <li>How is the Data Preprocessed?
         
@@ -90,6 +93,7 @@
        
     </li>
     
+                                   
     <li>What dataset do we use?
         
         <p>The dataset we used in this tutorial, m4_hourly, is a built-in dataset. It is part of the dataset that is being used in the fourth edition of the Makridakis forecasting Competition. With the given 700 values from each hour between 1750-01-01 00:00 and 1750-01-30 03:00, our aim is to predict the values in the next 48 hours. This dataset is an object that contains three members:<p>
@@ -109,18 +113,37 @@
                                                          
  
 <h3>Model Training: </h3>
+                                                
 <p>At the core of predicting time-series forecasts using GluonTS is the Predictor and the Estimator [16]. The Predictor’s goal is to simply return a forecast given some time-series data. This predictor comes from the training of the Estimator. In essence, the Estimator is trained on the training data to produce a Predictor, which takes some time-series data and produces a forecast from that data.<p>
 <p>Why are these two concepts split? These two constructs are separated to allow for the creation of a global model. Such a model is only trained once, and can then make many predictions for many different time series. The Estimator can be trained once to create a global model as a Predictor that can be fed many different time series, and use one consistent model to generate many different forecasts. This training is done “offline” in a separate step from the modeling, since creating the Predictor through training can take days or weeks for larger models. <p>
 <p>Global models are contrasted by local models. These models are “online” in that they are fit and predicted in the same step. This makes their training and predictions much faster, but they trade off lower performance. These local models are defined as Predictors, since they don’t need an Estimator from which the training is done.</p>
 
                                                 
 <h3>Performance Measurement</h3> 
-<p><p>
-                                                
-                                                
-                                                
-                                                
-<h3>Performance Measurement</h3>
+<p>We can now use an Estimator and Predictor to generate a probabilistic time-series prediction, but how do we know how well our model performed compared to the ground-truth data?<p>
+<p>For this, we will use two different measurements of accuracy: MAPE and RMSE [9].<p>                                                
+<p>MAPE stands for “mean absolute percentage error”, and is a percentage measurement of prediction accuracy for a forecasting model such as our time-series forecasting. The formula is as follows:<p>                                                
+<img src="distribution_table_m3.png">                                                
+<p>Here, A is the actual value, and P is the predicted value at that particular time.<p>                                                
+<p>This inner formula, (A - P) / A, is the percentage error. It represents the difference between the actual and estimated values in comparison to the actual value. The absolute value of this inner formula is summed up for every predicted point and is divided by the number of points. We take the absolute value here to avoid negative values – we don’t care if the predicted value is worse or better than the actual value, only the degree to which it differs from the actual value.<p>                                                
+<p>RMSE (root mean square error) is the square root of the MSE (mean squared error). The MSE is a measurement of how forecasted values differ from actual values, and represents the average squared errors. Since errors can be positive or negative, we take the square to standardize it into only being positive values. We take the square root of the average to standardize the square taken earlier. The formula is as follows:<p>
+<img src="distribution_table_m3.png">                                                   
+<p>Again A represents the true values of the time series, and P represents the values predicted by the model. A value of 0 indicates a perfect fit to the data. The benefit of RMSE is that its metric is in terms of the unit being predicted, making it easier to understand the model’s performance.<p> 
+<p>When comparing these two metrics, RMSE is more sensitive to outliers than MAPE. MAPE is easier to understand and compare because it outputs a percentage. However, MAPE can produce undefined or very large values if the actual values are close to 0, and unlike MAPE, RMSE is defined by the same metrics as the predicted values. These different pros and cons are why we report both values in this report https://stephenallwright.com/rmse-vs-mape/%5D<p>                                                                                      
+
+
+<h3>Findings and Conclusion</h3>
+                                    
+<p>Above is an informational guide to probabilistic time series forecasting in general, and how GluonTS can be used to solve time series problems.<p>
+<p>We first discussed the problem of time series forecasting, getting a probabilistic distribution of possible future values gathered from investigating past values. We then went over how GluonTS helps model these types of problems, from how they take in time series data to how they use Estimators and Predictors to create global models that can forecast future probability distributions from a time series. We also discussed methods of measuring the performance of a time series model, and detailed how MAPE and RMSE work and why we use those two metrics together to measure our models' performance.<p>                                    
+<p>We then experimented with using three different models.<p>                                    
+<p>We first used the naive seasonal model, which used the exact values of the previous season when predicting the next season, outputting a single value instead of a probability distribution. We used this model as a baseline, and explained why it isn't a particularly intelligent approach.<p>                                    
+<p>We next used GluonTS' Simple Feed Forward Network, an MLP network for which the number and size of layers, batch normalization, and learning rate can be adjusted. We used grid-search to tune these three hyperparameters and discovered that a single layer of 40 neurons with batch normalization and a learning rate of 0.01 optimized MAPE, while three layers of 40 neurons each without batch normalization and the same learning rate of 0.01 optimized RMSE. Since the RMSE values were still fairly low with the model that optimized MAPE, while the MAPE value was rather high with the model that optimized RMSE, we decided to use the model optimizing MAPE for further analysis. To test how this model performs when given more training epochs, we ran it for 100 epochs and got an optimal performance of MAPE: 0.1716 and RMSE: 3006.<p>
+<p>For our final model, we trained the DeepAR network first with 10 epochs and then with 50 and 100. We found that while the network performed worse than the Simple Feed Forward network and even the naive network when run with 10 epochs, when run with 50 and 100 epochs it performs much better. At 100 epochs trained, it achieved an MAPE score of 0.134 and an RMSE of 1566. However, it takes much longer to train, with the 100 epoch model taking over 16 minutes to train. This indicates a tradeoff for the DeepAR model: it does worse than SFFE when given less time to train, but when given more time will perform significantly better than the SFFE model.<p>                                    
+<p>We hope that through reading this notebook, you are able to gain a newfound understanding of what a time series forecast is, its importance, and how different models in GluonTS can be used for modeling this problem.<p>                                    
+                        
+                                    
+                                    <h3>Performance Measurement</h3>
 <p>We have compiled our results into a Google Colab. The link to this can be found <a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG?usp=sharing">here</a>.</p>
 
 <h3>References</h3>
