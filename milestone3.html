@@ -167,21 +167,25 @@
        </ul>
                            
          <p>We run the model with each of these different values, for a total of 48 times. That way, we can determine which value of the hyperparameters results in the best performance of the SFFE model.<p>                          
-         <p>How did we choose these values? The default for num_hidden_dimensions is [40, 40], meaning two connected layers of 40 nodes each. We are curious to what extent reducing or increasing the number of layers with 40 nodes affects performance. Additionally, we are curious whether increasing the number of nodes per layer from 40 to 100 will increase performance. For batch normalization, there are only two possible values: False (the default) and True, so we used both. For Learning rate, the default is 1e-3, so we are interested in whether decreasing or increasing the learning rate will improve performance.<p>                                   
+         <p>How did we choose these values? The default for num_hidden_dimensions is [40, 40], meaning two connected layers of 40 nodes each. We are curious to what extent reducing or increasing the number of layers with 40 nodes affects performance. Additionally, we are curious whether increasing the number of nodes per layer from 40 to 100 will increase performance. For batch normalization, there are only two possible values: False (the default) and True, so we used both. For Learning rate, the default is 1e-3, so we are interested in whether decreasing or increasing the learning rate will improve performance. Below are the results:<p>                                   
+         <img src="grid_result.png">
          <p>We next analyze these results to uncover what combination of hyperparameters deliver the best performance in our model.<p>
-         <p>The parameters with the lowest MAPE score of 0.2019 are hidden layer of [100], learning rate of 1e-2, and without batch normalization. The parameters with the lowest RMSE score of are hidden layers of [100, 100, 100], learning rate of 1e-2, and batch normalization. Its RMSE score is 1734.<p>                                   
-         <p>We see better performance in general with more layers. Additionally, we see that having more layers and no batch normalization, or fewer layers with batch normalization, gives optimal performance. A learning rate of 1e-2 seems to be optimal. We see different hyperparameters for the lowest MAPE and lowest RMSE, which highlights how these different metrics measure different things.<p>                                   
-         <p>Below is the plot of prediction with lowest MAPE: <p>
-         <img src="lowest_MAPE.png">
-         <p>Below is the plot of prediction with lowest RMSE: <p> 
-         <img src="lowest_RMSE.png">
+         <p>The parameters with the lowest MAPE score of 0.20 are hidden layers of [100], learning rate of 1e-2, and batch normalization. Its RMSE is 2875. The parameters with the lowest RMSE score of 1849 are hidden layers of [100, 100], learning rate of 1e-2, and no batch normalization. Its MAPE score is 0.22.<p>                                   
+         <p>We see that having more layers and no batch normalization, or fewer layers with batch normalization, gives optimal performance. A learning rate of 1e-2 seems to be optimal. We see different hyperparameters for the lowest MAPE and lowest RMSE, which highlights how these different metrics measure different things.<p>                                   
+
          <p>We next use these optimal parameters to train a model with more epochs. The goal of this is to test our hyperparameters on a longer training timeframe. We didn't increase the epochs when testing hyperparameters because the training time for the 48 different models would have been prohibitive. We can now use the optimal values gathered from testing over a shorter trianing time to see how it improves when given a longer training time.<p>
          <p>We are going to use the values with the lowest MAPE values because the RMSE was fairly close to that of the lowest RMSE, whereas the hyperparameters with the lowest RMSE values had a fairly bad MAPE score.<p>
-         <img src="more_epoc.png">
-         <p>We see from the above prediction plot that while the MAPE score decreases to 0.1716, the RMSE score actually increases. This means that the forecasted values differ more from the actual values, even as the accuracy of the model gets better, when using these hyperparameters. when comparing the output from 10 and 100 epochs, we see that the 90% prediction interval is much less varied when trained over 100 epochs, and in general more epochs cause the intervals to smooth out. At the same time, the 50% prediction interval seems to be more diverged from the ground-truth value. This supports the increase in MAPE and decrease in RMSE -- the model is more accurate since there are fewer predictions in the 90% prediction interval, but the overall distance between actual and predicted values is higher due to the 50% prediction interval straying farther from the ground truth.<p>                                   
+         <p>Below is the prediction result with 10 epochs: <p>
+                                   <img src="more_epoc.png">
+         <p>Below is the prediction result with 100 epochs: <p>
+                                   <img src="more_epoc_2.png">
+         <p>We see here that both the MAPE score and the RMSE score decrease when the epoch chnages from 10 to 100. when comparing the output from 10 and 100 epochs, we see that the 90% prediction interval is much less varied when trained over 100 epochs, and in general more epochs cause the intervals to smooth out. At the same time, the 50% prediction interval seems to be less diverged from the ground-truth value. <p>                                   
          <p>To investigate this further, we run a similar experiment: we use the hyperparameters with the lowest RMSE score for 100 epochs. We see that the MAPE value decreases from its original, while the RMSE increases. We again see that more training epochs appears to improve MAPE while making the RMSE worse. Below is the prediction plot: <p>
-         <img src="more_epoc_2.png">
-         <p>Look at the above plot, We see the same trend as before, where the 90% prediction invervals are smaller and less varied while the 50% confidence intervals are further from the ground truth in the 100 epoch run.<p>
+         <p>Below is the prediction result with 10 epochs: <p>
+                                   <img src="more_epoc_3.png">
+         <p>Below is the prediction result with 100 epochs: <p>
+                                   <img src="more_epoc_4.png">
+         <p>Look at the above plot, we see the same trend as before, where the 90% prediction invervals are smaller and less varied while the 50% confidence intervals are closer to the ground truth in the 100 epoch run.<p>
                </li>
         </ul>
    
