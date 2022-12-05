@@ -121,11 +121,11 @@
 <p>We can now use an Estimator and Predictor to generate a probabilistic time-series prediction, but how do we know how well our model performed compared to the ground-truth data?<p>
 <p>For this, we will use two different measurements of accuracy: MAPE and RMSE [9].<p>                                                
 <p>MAPE stands for "mean absolute percentage error", and is a percentage measurement of prediction accuracy for a forecasting model such as our time-series forecasting. The formula is as follows:<p>                                                
-<img src="distribution_table_m3.png">                                                
+<img src="PM_1.png">                                                
 <p>Here, A is the actual value, and P is the predicted value at that particular time.<p>                                                
 <p>This inner formula, (A - P) / A, is the percentage error. It represents the difference between the actual and estimated values in comparison to the actual value. The absolute value of this inner formula is summed up for every predicted point and is divided by the number of points. We take the absolute value here to avoid negative values (we do not care if the predicted value is worse or better than the actual value, only the degree to which it differs from the actual value).<p>                                                
 <p>RMSE (root mean square error) is the square root of the MSE (mean squared error). The MSE is a measurement of how forecasted values differ from actual values, and represents the average squared errors. Since errors can be positive or negative, we take the square to standardize it into only being positive values. We take the square root of the average to standardize the square taken earlier. The formula is as follows:<p>
-<img src="distribution_table_m3.png">                                                   
+<img src="PM_2.png">                                                   
 <p>Again A represents the true values of the time series, and P represents the values predicted by the model. A value of 0 indicates a perfect fit to the data. The benefit of RMSE is that its metric is in terms of the unit being predicted, making it easier to understand the performance of models.<p> 
 <p>When comparing these two metrics, RMSE is more sensitive to outliers than MAPE. MAPE is easier to understand and compare because it outputs a percentage. However, MAPE can produce undefined or very large values if the actual values are close to 0, and unlike MAPE, RMSE is defined by the same metrics as the predicted values.<p>                                                                                      
 
@@ -137,28 +137,30 @@
     <li>Estimator 1: Naive Seasonal
         
         <p>For this, we use the GluonTS package SeasonalNaivePredictor [17]. This model takes in three values: freq, the frequency of the input data; prediction_length, the number of time points to predict; and season_length, which is how long the "seasons" of the data are, or when the pattern repeats. For the first two inputs, the dataset metadata provides it for us: we can use dataset.metadata.freq to get the frequency, and dataset.metadata.prediction_length to get the prediction length. For the third parameter, season_length, we can also use the prediction length, as we're trying to use the previous "season", or previous day, as our prediction for the next day.<p>
-        <img src="distribution_table_m3.png">  
+        <img src="e1_1.png">  
         <p>Here, you can see that the model predicts the next season to be exactly the same as the previous season. It generally does a pretty decent job, with a MAPE value of 0.15 and an RMSE of 1901. We see such good performance largely due to the consistency of our data. The next 48 hour interval is generally quite aligned with the previous 48 hours.<p>
         <p>To demonstrate that this model is not particularly accurate when using time series that are less consistent, we run the same naive seasonal model on a new dataset, the 'covid_deaths' dataset. Here we see that it using the same naive seasonal technique of just predicting the values it saw before is much less accurate. We can view the 'm4_hourly' results almost like a best case, since the 'm4_hourly' dataset is so consistent from one 48 hour period to the next.<p>
-        <img src="distribution_table_m3.png">
-        <p>Here we don't see prediction intervals like we do with the following two models we analyze because it isn't giving a probabilistic forecast. Instead, it's predicting precisely the same values it saw before. This means it is much less robust. Since it just repeats the previous season, there’s no concept of trends over the course of many seasons or predictive power for more anomalous data. There’s also a lack of intelligence here; it’s just predicting the same values it previously saw instead of doing any sort of true prediction. For more intelligent models, we next turn to Deep Learning and leave this naive forecast as our baseline for future analysis.<p>
+        <img src="e1_2.png">
+        <p>Here we don't see prediction intervals like we do with the following two models we analyze because it isn't giving a probabilistic forecast. Instead, it's predicting precisely the same values it saw before. This means it is much less robust. Since it just repeats the previous season, there's no concept of trends over the course of many seasons or predictive power for more anomalous data. There's also a lack of intelligence here; it's just predicting the same values it previously saw instead of doing any sort of true prediction. For more intelligent models, we next turn to Deep Learning and leave this naive forecast as our baseline for future analysis.<p>
         
     </li>
     
                                    
     <li>Estimator 2: Simple Feed-Forward Network
         
-        <p>For our first attempt at a deeper model that uses machine learning for intelligent prediction, we use GluonTS’s SimpleFeedForwardEstimator module [18]. This is a global model, which means that it’s created as an Estimator and then a Predictor is generated once the Estimator is trained on the training data.<p>
+        <p>For our first attempt at a deeper model that uses machine learning for intelligent prediction, we use GluonTS's SimpleFeedForwardEstimator module [18]. This is a global model, which means that it's created as an Estimator and then a Predictor is generated once the Estimator is trained on the training data.<p>
         <p>The Simple Feed Forward Estimator (SFFE) uses a Multi-Layer Perceptron (MLP) architecture. This model takes in a number of parameters. It comprises quite a few parameters, we focus on a few in particular: <p>                                    
         <ul>
-            <li>prediction_length (int) – Length of the prediction horizon     </li>  
-            <li>trainer – Trainer object to be used (default: Trainer())     </li>  
-            <li>num_hidden_dimensions – Number of hidden nodes in each layer (default: [40, 40])     </li>                                             
-            <li>batch_normalization – Whether to use batch normalization (default: False)     </li>
-      
+            <li>prediction_length (int): Length of the prediction horizon     </li>  
+            <li>trainer: Trainer object to be used (default: Trainer())     </li>  
+            <li>num_hidden_dimensions: Number of hidden nodes in each layer (default: [40, 40])     </li>                                             
+            <li>batch_normalization: Whether to use batch normalization (default: False)     </li>
+       <ul>
+                           
          <p>The model takes in a Trainer, from which we can adjust the epochs, learning rate, and batches per epoch. We use a standard number of epochs at 10 and batches per epoch at 50 to reduce training time.<p>
          <p>In total, we analyze the adjustment of 3 hyperparameters: num_hidden_dimensions, batch_normalization, and learning_rate. We detail our findings below.<p> 
          <p>To determine which hyperparameters are best for this model, we take a list of values for each hyperparameter and train the model with each value from each list of hyperparemeters.<p>                                   
+       <ul> 
             <li>Hidden dimensions: [[40], [40, 40], [40, 40, 40], [100], [100, 100], [100, 100, 100]]     </li>  
             <li>Batch normalization: [False, True]     </li>  
             <li>Learning rate: [1e-4, 1e-3, 1e-2, 1e-1]    </li>                                             
