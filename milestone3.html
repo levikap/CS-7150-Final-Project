@@ -50,6 +50,7 @@
 <h3>Figure</h3>
 <img src="final_figure.png">
 
+                           
 <h3>Introduction</h3>
 
 <p>Time series forecasting is a relevant problem in many domains, such as commerce, epidemiology, weather, and sports analytics. Anytime there is historical data that has a time order from which a prediction can be made, time-series forecasting may help make these predictions. It is therefore important for this technique to be more approachable and easier to understand.</p>
@@ -67,15 +68,16 @@
     <li>What is probabilistic time-series forecasting?
                            
         <p>Let us first discuss the concept of probabilistic forecasting. Probabilistic forecasting gives a probabilistic distribution of all the possible outcomes instead of one single value. For instance, we can predict the frequency of heads when flipping two coins once, which is a random experience. The result of throwing a coin will be either heads or tails. In addition, the frequency of heads in this experiment can be 0, 1, or 2. Instead of picking a single number from 0,1,or 2 as the prediction result (A.K.A. point forecasting), we are interested in generating a probability distribution table to include all the possible outcomes. The frequency of heads in the outcome is a random variable. The probability distribution table shows how likely each possible outcome is. The probability of outcome 0, which means that both the two coins show tails, is 0.5 * 0.5 = 0.25. The probability of outcome 1, which means that one coin shows tails and the other shows heads, is 2* 0.5 * 0.5 =0.5. The probability of outcome 2, which means that both the two coins show heads, is 0.5 * 0.5 = 0.25. Here is the distribution table:</p>
-        <img src="distribution_table_m3.png">                           
+                                       
         <p>Probabilistic forecasting is more meaningful than point forecasting since the real world is full of uncertainties. For example, when we do weather forecasting, the prediction is more accurate when we conclude that the probability that tomorrow will be a rainy day is 20% instead of just saying that tomorrow is going to rain or not. Similarly, probabilistic time series forecasting predicts the probabilistic distribution of the future time points.<p>
         <img src="prob_graph_1.png">
         <p>For example, the above graph is an example of probabilistic time series forecasting. The generation process of this graph is like predicting a time series 1000 times and then plotting the distribution of all possible outcomes. From the graph, we can find the 50% percentile (median), 50% prediction interval, and 90% prediction interval. For example, if this was a graph aiming to predict the demand of milk, we could know that the demand is more likely between 700 to 800 gallons, but unlikely 900 gallons.<p>
     </li>
                            
 </ul>
+ 
                                    
-<h3>Model Implementation: Data Preprocessing</h3>
+<h3>Data Preprocessing</h3>
 <ul>
     <li>How is the Data Preprocessed?
         
@@ -83,18 +85,21 @@
         <ul>
             <li>Use an available dataset provided by GluonTS. There are several built-in datasets, which can be used on the modeling step without post processing.           </li>
             <li>Create a self_defined dataset using GluonTS. This type of datasets can be created by using the ComplexSeasonalTimeSeries module, which should be a list of dictionaries. Each dictionary denotes a time series and it at least has the required target and start fields.          </li>
-            <li>tConvert custom dataset to the GluonTS required format. Besides meeting the dataset format requirements mentioned above, we can also add more fields by using transformation objects, which could be helpful to our model. In addition, with the transformation object, we can set the appropriate training and inference windows to increase the forecasting accuracy.</li>
+            <li>Convert custom dataset to the GluonTS required format. Besides meeting the dataset format requirements mentioned above, we can also add more fields by using transformation objects, which could be helpful to our model. In addition, with the transformation object, we can set the appropriate training and inference windows to increase the forecasting accuracy.</li>
         </ul>
        
     </li>
     
     <li>What dataset do we use?
         
-        <p>The dataset we used in this tutorial, ‘m4_hourly’, is a built-in dataset. It is part of the dataset that is being used in the fourth edition of the Makridakis forecasting Competition. With the given 700 values from each hour between 1750-01-01 00:00 and 1750-01-30 03:00, our aim is to predict the values in the next 48 hours. This dataset is an object that contains three members:<p>
+        <p>The dataset we used in this tutorial, m4_hourly, is a built-in dataset. It is part of the dataset that is being used in the fourth edition of the Makridakis forecasting Competition. With the given 700 values from each hour between 1750-01-01 00:00 and 1750-01-30 03:00, our aim is to predict the values in the next 48 hours. This dataset is an object that contains three members:<p>
         <ul>
-            <li>dataset.train is an iterable collection of data entries used for training.          </li>
-            <li>dataset.test is an iterable collection of data entries used for inference. It contains the training dataset and prediction values.          </li>
-            <li>dataset.metadata contains statistical information of the dataset such as the frequency of the time series, prediction length.        </li>
+            <li>dataset.train is an iterable collection of data entries used for training. A time series is represented as a dictionary. Here is the training dataset infromation (the first column is start field and second column is target field):     </li>                      
+            <img src="distribution_table_m3.png">
+            <li>dataset.test is an iterable collection of data entries used for inference. It contains the training dataset and prediction values. Testing data is the extended training dataset. It consist of training dataset and an additional dataset in the end whose length equals to prediction_length. In our case, the training dataset length is 700. In addition, we are going to predict next 48 hours values, so the testing dataset's length is 748.Below is the graph of training and testing dataset:       </li>
+            <img src="distribution_table_m3.png">
+            <p>
+            <li>dataset.metadata contains statistical information of the dataset such as the frequency of the time series, prediction length. For m4_hourly dataset, dataset.metadata provides the recommended prediction length and time series frequency, which are 48 and hour.      </li>
             </li>
         </ul>
    
@@ -102,18 +107,20 @@
 
 </ul>   
                                                          
-
-        
-
-
-                           
-
  
-<h3>Methods</h3>
-<p>Our primary technique for this study involved reading through documentation and papers and conducting experiments through Google Colab. We read through a number of blog posts, articles, and code walkthroughs from the internet over the course of researching time-series forecasting. Additionally, we read through the GluonTS documentation and code, seeking to understand from a more fundamental way how the library works, how it's trained and tested, and how we can use it to run our own forecasting experiments.</p>
-<p>Our contributions take the form of an exploration of time-series forecasting as a problem: what are the training and testing parameters? How is the model trained and run? How can one use GluonTS to solve a time-series forecasting problem? We sought to solve these problems by reading documentation and papers on the subject, and exploring their practical use by coding examples and testing different models' performances through cross-grid hyperparameter tuning.</p>
+<h3>Model Training: </h3>
+<p>At the core of predicting time-series forecasts using GluonTS is the Predictor and the Estimator [16]. The Predictor’s goal is to simply return a forecast given some time-series data. This predictor comes from the training of the Estimator. In essence, the Estimator is trained on the training data to produce a Predictor, which takes some time-series data and produces a forecast from that data.<p>
+<p>Why are these two concepts split? These two constructs are separated to allow for the creation of a global model. Such a model is only trained once, and can then make many predictions for many different time series. The Estimator can be trained once to create a global model as a Predictor that can be fed many different time series, and use one consistent model to generate many different forecasts. This training is done “offline” in a separate step from the modeling, since creating the Predictor through training can take days or weeks for larger models. <p>
+<p>Global models are contrasted by local models. These models are “online” in that they are fit and predicted in the same step. This makes their training and predictions much faster, but they trade off lower performance. These local models are defined as Predictors, since they don’t need an Estimator from which the training is done.</p>
 
-<h3>Results</h3>
+                                                
+<h3>Performance Measurement</h3> 
+<p><p>
+                                                
+                                                
+                                                
+                                                
+<h3>Performance Measurement</h3>
 <p>We have compiled our results into a Google Colab. The link to this can be found <a href="https://colab.research.google.com/drive/1p9ZNZGt0o8saGbzSOjjyPtOiIyIT5ykG?usp=sharing">here</a>.</p>
 
 <h3>References</h3>
