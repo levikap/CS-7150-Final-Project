@@ -186,16 +186,12 @@
 
          <p>We next use these optimal parameters to train a model with more epochs. The goal of this is to test our hyperparameters on a longer training timeframe. We didn't increase the epochs when testing hyperparameters because the training time for the 48 different models would have been prohibitive. We can now use the optimal values gathered from testing over a shorter trianing time to see how it improves when given a longer training time.<p>
          <p>We are going to use the values with the lowest MAPE values because the RMSE was fairly close to that of the lowest RMSE, whereas the hyperparameters with the lowest RMSE values had a fairly bad MAPE score.<p>
-         <p>Below is the prediction result with 10 epochs: <p>
-                                   <img src="more_epoc.png">
          <p>Below is the prediction result with 100 epochs: <p>
-                                   <img src="more-epoc_2.png">
+                                   <img src="more_e_1.png">
          <p>We see here that both the MAPE score and the RMSE score decrease when the epoch chnages from 10 to 100. when comparing the output from 10 and 100 epochs, we see that the 90% prediction interval is much less varied when trained over 100 epochs, and in general more epochs cause the intervals to smooth out. At the same time, the 50% prediction interval seems to be less diverged from the ground-truth value. <p>                                   
          <p>To investigate this further, we run a similar experiment: we use the hyperparameters with the lowest RMSE score for 100 epochs. We see that the MAPE value decreases from its original, while the RMSE increases. We again see that more training epochs appears to improve MAPE while making the RMSE worse. Below is the prediction plot: <p>
-         <p>Below is the prediction result with 10 epochs: <p>
-                                   <img src="more_epoc_3.png">
          <p>Below is the prediction result with 100 epochs: <p>
-                                   <img src="more-epoc_4.png">
+                                   <img src="more_e_2.png">
          <p>Look at the above plot, we see the same trend as before, where the 90% prediction invervals are smaller and less varied while the 50% confidence intervals are closer to the ground truth in the 100 epoch run.<p>
                </li>
         </ul>
